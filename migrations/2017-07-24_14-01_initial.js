@@ -10,4 +10,7 @@ exports.up = function(knex) {
   });
 };
 
-exports.down = function(knex, Promise) {};
+exports.down = function(knex) {
+  return knex.schema.dropTableIfExists("locations");
+  //more tables will be dropped for next version
+};
