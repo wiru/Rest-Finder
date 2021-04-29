@@ -10,11 +10,11 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "makeMigration": "npx knex ---knexfile ./knexfile.js migrate:make",
-    "migrate": "npx knex --knexfile ./knexfile.js migrate:latest",
-    "rollback": "npx knex --knexfile ./knexfile.js migrate:rollback",
     "makeSeed": "npx knex --knexfile ./knexfile.js seed:make",
-    "seed": "npx knex --knexfile ./knexfile.js seed:run"
+    "seed": "npx knex --knexfile ./knexfile.js seed:run",
+    "makeMigration": "npx knex --knexfile ./knexfile.js migrate:make ",
+    "migrate" : "npx knex --knexfile ./knexfile.js migrate:latest",
+    "rollback" : "npx knex --knexfile ./knexfile.js migrate:rollback"
   },
   "dependencies": {
     "axios": "^0.21.0",
