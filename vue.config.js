@@ -2,8 +2,8 @@ module.exports = {
   lintOnSave: false,
   devServer: {
     proxy: {
-      "/api": {
-        target: "http://localhost:9000",
+      "/graphql": {
+        target: "http://localhost:4000",
         secure: false,
       },
     },

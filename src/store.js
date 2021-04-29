@@ -16,7 +16,23 @@ export default new Vuex.Store({
   actions: {
     async loadMarkers({ commit }) {
       try {
-        const { data: locations } = await axios.get("/api/locations"); // ES6 destructuring & aliasing
+        const locations = await fetch("http://localhost:4000/graphql?", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: `{
+              allLocations {
+                  name
+                  latitude
+                  longitude
+              }}`,
+          }),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res.data.allLocations);
+            return res.data.allLocations;
+          });
         const markers = locations.map((location) => ({
           position: {
             lat: location.latitude,
