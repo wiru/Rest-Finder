@@ -13,8 +13,8 @@
     "makeSeed": "npx knex --knexfile ./knexfile.js seed:make",
     "seed": "npx knex --knexfile ./knexfile.js seed:run",
     "makeMigration": "npx knex --knexfile ./knexfile.js migrate:make ",
-    "migrate" : "npx knex --knexfile ./knexfile.js migrate:latest",
-    "rollback" : "npx knex --knexfile ./knexfile.js migrate:rollback"
+    "migrate": "npx knex --knexfile ./knexfile.js migrate:latest",
+    "rollback": "npx knex --knexfile ./knexfile.js migrate:rollback"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -44,9 +44,6 @@
     "lint-staged": "^10.5.1",
     "nodemon": "^2.0.6",
     "vue-template-compiler": "^2.6.12"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.js": [
