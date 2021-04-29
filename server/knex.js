@@ -9,6 +9,10 @@ const db = knex({
     password: process.env.DB_PW,
     database: process.env.DB_NAME,
   },
+  migrations: {
+    tableName: "migrations",
+    directory: "./migrations",
+  },
   searchPath: "public",
 });
 
