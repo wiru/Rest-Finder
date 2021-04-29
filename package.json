@@ -9,7 +9,12 @@
     "hack": "concurrently \"yarn hack:server\" \"yarn hack:client\"",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "makeMigration": "npx knex --knexfile ./knexfile.js migrate:make",
+    "migrate": "npx knex --knexfile ./knexfile.js migrate:latest",
+    "rollback": "npx knex --knexfile ./knexfile.js migrate:rollback",
+    "makeSeed": "npx knex --knexfile ./knexfile.js seed:make",
+    "seed": "npx knex --knexfile ./knexfile.js seed:run"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -40,9 +45,7 @@
     "nodemon": "^2.0.6",
     "vue-template-compiler": "^2.6.12"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
+
   "lint-staged": {
     "*.js": [
       "vue-cli-service lint",
