@@ -2,7 +2,7 @@ require("dotenv").config();
 const app = require("./app");
 const db = require("./knex");
 
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 4000;
 
 (async () => {
   try {
