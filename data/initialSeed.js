@@ -3,9 +3,7 @@ const db = require("../server/knex.js");
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  console.log(`BEFORE ...`);
   const locations = JSON.parse(fs.readFileSync("./data/locations.json"));
-  console.log(`TEST ${locations}`);
   const promiseTable = [];
   let i = 0;
   for (const location of locations) {
