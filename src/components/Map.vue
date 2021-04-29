@@ -1,9 +1,8 @@
 <template>
   <GmapMap
-    :zoom="4"
-    :center="{ lat: 25.7392, lng: -104.9903 }"
+    :zoom="5"
+    :center="{ lat: 35.7392, lng: -97.9903 }"
     map-type-id="terrain"
-    style="width: 100%; height: 300px"
   >
     <GmapMarker
       v-for="location in locations"
@@ -36,3 +35,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.vue-map-container {
+  height: 50vh;
+  border-radius: 20px;
+  border: solid yellow 5px;
+  overflow: hidden;
+  margin-right: 50px;
+}
+</style>
