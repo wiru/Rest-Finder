@@ -1,4 +1,4 @@
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.createTable("locations", (table) => {
     table.increments().index();
 
@@ -8,6 +8,8 @@ exports.up = function(knex) {
 
     table.text("name").notNullable();
   });
-};
+}
 
-exports.down = function(knex, Promise) {};
+export function down(knex, Promise) {
+  return knex.schema.dropTableIfExists("locations");
+}
