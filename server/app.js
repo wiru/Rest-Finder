@@ -2,6 +2,7 @@ const express = require("express");
 const { ApolloServer, gql } = require("apollo-server-express");
 require("dotenv").config();
 
+const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
 const db = require("./knex");
@@ -47,6 +48,8 @@ app.use(
 const server = new ApolloServer({ typeDefs, resolvers });
 
 server.applyMiddleware({ app });
+
+app.use(cors());
 
 app.use(express.static(__dirname));
 
