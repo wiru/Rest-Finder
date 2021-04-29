@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "Stop Types",
+  name: "StopTypes",
   props: {
     msg: String,
   },

@@ -1,15 +1,24 @@
 <template>
   <div>
       Locations:
-      <select v-model="state" id="state-input" />
-        <option v-for="state of locations.state" v-bind:key="state"> 
+      <select v-model="state" id="state-input" placeholder="Select a State"/>
+        <option v-for="state of res.data.locations.state" v-bind:key="state"> 
         </option>
-      <input type="text" id="city-input" placeholder="Enter City" />
-      <input type="text" id="highway-input" placeholder="Enter Highway" />
+      <select v-model="city" id="city-input" placeholder="Select a City" />
+        <option v-for="city of res.data.locations.city" v-bind:key="city">
+        </option>
+      <select v-model="highway" id="highway-input" placeholder="Select a Highway" />
+        <option v-for="highway of res.data.locations.highway" v-bind:key="highway">
+        </option>
+
   </div>
 </template>
 
 <script>
+//Need to bring location data from the store here to be used for the dynamic dropdown
+//I made a mock up of what it should "sort of" look like based off research
+//v-model is used for two way binding. V-for renders element multiple times based on amount of options
+//current state is not dynamic
 export default {
   name: "FilterByState",
   props: {
