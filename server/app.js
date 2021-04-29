@@ -65,16 +65,14 @@ const resolvers = {
         .orderBy("city")
         .from("locations")
     },
-    citiesByState: (args) => {
-      console.log(`Argument is: ${args}`)
+    citiesByState: (_, args) => {
       return db
         .select("city")
         .distinct("city")
         .orderBy("city")
-        .where('state', args.stateId)
+        .where("state", args.stateId)
         .from("locations")
         .then((data) => {
-          console.log(`Result of the query: ${JSON.stringify(data)}`);
           return data.map((cityObj) => cityObj.city);
         });
     }
