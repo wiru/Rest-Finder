@@ -9,16 +9,21 @@ exports.seed = function(knex) {
   const promiseTable = [];
   let i = 0;
   for (const location of locations) {
-    // const id = location.Site.SiteId;
     const latitude = location.Site.Latitude;
     const longitude = location.Site.Longitude;
     const name = location.Site.SiteName;
+    const state = location.Addresses[0].State; // there may be some locations with more than one address? 
+    const city = location.Addresses[0].City; // there may be some locations with more than one address? 
+    const highway = location.Site.Highway;
 
     promiseTable.push(
       db("locations").insert({
         latitude: latitude,
         longitude: longitude,
         name: name,
+        state: state,
+        city: city,
+        highway: highway,
       })
     );
     console.log(`Inserting record ${++i} - /${name} into database... `);
