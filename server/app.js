@@ -13,6 +13,9 @@ const app = express();
 const typeDefs = gql`
   type Query {
     allLocations: [Location]
+    allStates: [String]
+    allCities: [CityState]
+    citiesByState(stateId: String): [String]
   }
 
   type Location {
@@ -20,7 +23,16 @@ const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     name: String!
+    state: String!
+    city: String!
+    highway: String!
   }
+
+  type CityState {
+    city: String!
+    state: String!
+  }
+
 `;
 
 // RESOLVER
@@ -35,6 +47,35 @@ const resolvers = {
           return data;
         });
     },
+    allStates: () => {
+      return db
+        .select("state")
+        .distinct("state")
+        .orderBy("state")
+        .from("locations")
+        .then ( (data) => {
+          // the DB query returns an array of objects { state: "TX" }. We want to return an array of strings.
+          return data.map((stateObj) => stateObj.state); 
+        })
+    },
+    allCities: () => {
+      return db
+        .select("city", "state")
+        .distinct("city", "state")
+        .orderBy("city")
+        .from("locations")
+    },
+    citiesByState: (_, args) => {
+      return db
+        .select("city")
+        .distinct("city")
+        .orderBy("city")
+        .where("state", args.stateId)
+        .from("locations")
+        .then((data) => {
+          return data.map((cityObj) => cityObj.city);
+        });
+    }
   },
 };
 

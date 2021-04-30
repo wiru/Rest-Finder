@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import FilterByState from "./components/FilterByState.vue";
+/* import FilterByState from "./components/FilterByState.vue"; */
 import Amenities from "./components/Amenities.vue";
 import Restaurants from "./components/Restaurants.vue";
 import TruckServices from "./components/TruckServices.vue";
@@ -38,7 +38,7 @@ import Map from "./components/Map";
 export default {
   name: "app",
   components: {
-    FilterByState,
+    /* FilterByState, */
     Map,
     Restaurants,
     TruckServices,
