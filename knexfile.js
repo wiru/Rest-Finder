@@ -18,7 +18,6 @@ module.exports = {
       directory: "./data",
     },
   },
-
   staging: {
     client: "pg",
     connection: {

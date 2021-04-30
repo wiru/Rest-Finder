@@ -7,10 +7,11 @@
     <div id="flexbox-container">
       <div id="column1">
         <FilterByState />
-        <TruckServices />
+        <!-- v-bind:locations="locations" -->
+        <!-- <TruckServices />
         <StopType />
         <Amenities />
-        <Restaurants />
+        <Restaurants /> -->
       </div>
       <div id="column2">
         <div id="column2-header">
@@ -29,21 +30,23 @@
 
 <script>
 /* import FilterByState from "./components/FilterByState.vue"; */
-import Amenities from "./components/Amenities.vue";
-import Restaurants from "./components/Restaurants.vue";
-import TruckServices from "./components/TruckServices.vue";
-import StopType from "./components/StopType.vue";
+// import Amenities from "./components/Amenities.vue";
+// import Restaurants from "./components/Restaurants.vue";
+// import TruckServices from "./components/TruckServices.vue";
+// import StopType from "./components/StopType.vue";
 import Map from "./components/Map";
+import FilterByState from "./components/FilterByState.vue";
 
 export default {
   name: "app",
   components: {
     /* FilterByState, */
     Map,
-    Restaurants,
-    TruckServices,
-    Amenities,
-    StopType,
+    // Restaurants,
+    // TruckServices,
+    // Amenities,
+    // StopType,
+    FilterByState,
   },
 };
 </script>

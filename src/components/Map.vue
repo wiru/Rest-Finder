@@ -1,10 +1,12 @@
 <template>
   <GmapMap
-    :zoom="4"
-    :min-zoom="3"
-    :max-zoom="5"
-    :center="{ lat: 38.7392, lng: -97.9903 }"
+    :zoom="this.$store.state.selectedZoom"
+    :center="{
+      lat: this.$store.state.selectedLatitude,
+      lng: this.$store.state.selectedLongitude,
+    }"
     map-type-id="terrain"
+    :options="{ minZoom: 4, maxZoom: 10 }"
   >
     <GmapMarker
       v-for="location in locations"
@@ -22,6 +24,8 @@ import { gmapApi } from "vue2-google-maps";
 export default {
   mounted() {
     this.getLocations();
+    this.getAllCoords();
+    console.log("WAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   },
   computed: {
     locations() {
@@ -32,6 +36,10 @@ export default {
   methods: {
     getLocations() {
       this.$store.dispatch("loadMarkers");
+    },
+    getAllCoords() {
+      this.$store.dispatch("loadStateCoords");
+      this.$store.dispatch("loadCityCoords");
     },
     markerRightClicked() {},
   },
