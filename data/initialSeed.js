@@ -22,10 +22,10 @@ exports.seed = function(knex) {
     let fax;
     
     for (const contactMethod of location.ContactMethods) {
-      if (contactMethod.Type.Name = "Main Phone") {
+      if (contactMethod.Type.Name === "Main Phone") {
         phone = contactMethod.Data 
       }
-      if (contactMethod.Type.Name = "Fax") {
+      if (contactMethod.Type.Name === "Fax") {
         fax = contactMethod.Data 
       } 
     }

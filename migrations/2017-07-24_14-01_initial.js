@@ -1,4 +1,4 @@
-export function up(knex) {
+exports.up = function(knex) {
   return knex.schema.createTable("locations", (table) => {
     table.increments().index();
 
