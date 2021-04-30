@@ -22,16 +22,9 @@ export default new Vuex.Store({
           body: JSON.stringify({
             query: `{
               allLocations {
-                  name
                   subtype
                   latitude
                   longitude
-                  address1
-                  city 
-                  state
-                  zip_code
-                  highway
-                  exit
               }}`,
           }),
         })
@@ -40,7 +33,9 @@ export default new Vuex.Store({
             console.log(res.data.allLocations);
             return res.data.allLocations;
           });
-        const markers = locations.map((location) => ({
+        const markers = locations.map((location) => (
+          console.log('🔥 ', location),
+          {
           position: {
             lat: location.latitude,
             lng: location.longitude,
