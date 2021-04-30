@@ -22,13 +22,15 @@ const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     name: String!
-    state: String!
-    city: String!
-    highway: String!
-    zip_code: String!
-    address1: String!
-    subtype: String!
-    exit: String!
+    state: String
+    city: String
+    highway: String
+    zip_code: String
+    address1: String
+    subtype: String
+    exit: String
+    phone: String
+    fax: String
   }
 `;
 
