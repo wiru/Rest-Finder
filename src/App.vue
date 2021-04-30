@@ -22,7 +22,11 @@
           <img id="map-gator" src="./assets/croc2.png" alt="cute alligator" />
         </div>
         <Map v-on:marker-selected="fillDetailPane($event)" />
-        <DetailPanel v-if="markerSelected" :SelectedSite="selectedSite" />
+        <DetailPanel
+          v-if="markerSelected"
+          :selectedSite="selectedSite"
+          :selectedSiteDetails="selectedSiteDetails"
+        />
       </div>
     </div>
   </div>
@@ -43,6 +47,7 @@ export default {
     return {
       markerSelected: false,
       selectedSite: "",
+      selectedSiteDetails: {},
     };
   },
   components: {
@@ -59,6 +64,24 @@ export default {
       this.markerSelected = true;
       this.selectedSite = truckStopname;
       console.log(`Event triggered: ${truckStopname}`);
+      try {
+        const locationDetails = await fetch("/graphql?", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: `{
+              allLocations {
+                  subtype
+                  latitude
+                  longitude
+              }}`,
+          }),
+        });
+        console.log(`Received details for the location: ${JSON.stringify(locationDetails)}`);
+        this.selectedSiteDetails = locationDetails;
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };

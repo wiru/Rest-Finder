@@ -29,7 +29,7 @@ export default new Vuex.Store({
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log(res.data.allLocations);
+            // console.log(res.data.allLocations);
             return res.data.allLocations;
           });
         const markers = locations.map((location) => ({

@@ -9,9 +9,9 @@
     <GmapMarker
       v-for="location in locations"
       :key="location.key"
+      :icon="{ url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' }"
       :position="location.position"
       :animation="location.defaultAnimation"
-      :icon="{ url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' }"
       @click="$emit('marker-selected', location.key)"
     />
   </GmapMap>
