@@ -6,7 +6,7 @@
     </header>
     <div id="flexbox-container">
       <div id="column1">
-        <FilterByState />
+        <!-- <FilterByState /> -->
         <TruckServices />
         <StopType />
         <Amenities />
@@ -21,29 +21,45 @@
           />
           <img id="map-gator" src="./assets/croc2.png" alt="cute alligator" />
         </div>
-        <Map />
+        <Map v-on:marker-selected="fillDetailPane($event)" />
+        <DetailPanel v-if="markerSelected" :SelectedSite="selectedSite" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-/* import FilterByState from "./components/FilterByState.vue"; */
+// import FilterByState from "./components/FilterByState.vue";
 import Amenities from "./components/Amenities.vue";
 import Restaurants from "./components/Restaurants.vue";
 import TruckServices from "./components/TruckServices.vue";
 import StopType from "./components/StopType.vue";
 import Map from "./components/Map";
+import DetailPanel from "./components/DetailPanel";
 
 export default {
   name: "app",
+  data: function() {
+    return {
+      markerSelected: false,
+      selectedSite: "",
+    };
+  },
   components: {
-    /* FilterByState, */
+    // FilterByState,
     Map,
     Restaurants,
     TruckServices,
     Amenities,
     StopType,
+    DetailPanel,
+  },
+  methods: {
+    async fillDetailPane(truckStopname) {
+      this.markerSelected = true;
+      this.selectedSite = truckStopname;
+      console.log(`Event triggered: ${truckStopname}`);
+    },
   },
 };
 </script>
