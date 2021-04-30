@@ -11,7 +11,8 @@
       :key="location.key"
       :position="location.position"
       :animation="location.defaultAnimation"
-      @rightclick="markerRightClicked"
+      :icon="{ url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' }"
+      @click="$emit('marker-selected', location.key)"
     />
   </GmapMap>
 </template>

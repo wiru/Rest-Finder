@@ -8,7 +8,7 @@ exports.up = function(knex) {
 
     table.text("name").notNullable();
   });
-};
+}
 
 exports.down = function(knex, Promise) {
   return knex.schema.dropTableIfExists("locations");

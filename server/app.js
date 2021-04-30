@@ -22,14 +22,15 @@ const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     name: String!
-    state: String!
-    city: String!
-    highway: String!
-  }
-
-  type CityState {
-    city: String!
-    state: String!
+    state: String
+    city: String
+    highway: String
+    zip_code: String
+    address1: String
+    subtype: String
+    exit: String
+    phone: String
+    fax: String
   }
 `;
 
@@ -92,20 +93,5 @@ app.use(express.static(__dirname));
 
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, "..", "dist")));
-
-// app.get("/api/locations", async (req, res) => {
-//   try {
-//     const locations = await db.select().table("locations");
-//     res.json(locations);
-//   } catch (err) {
-//     console.error("Error loading locations!", err);
-//     res.sendStatus(500);
-//   }
-// });
-
-// // Always return the main index.html, since we are developing a single page application
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "..", "dist", "index.html"));
-// });
 
 module.exports = app;

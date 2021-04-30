@@ -12,8 +12,10 @@
 <script>
 export default {
   name: "FilterByState",
-  props: {
-    msg: String,
+  data: function() {
+    return {
+      state: "",
+    };
   },
 };
 </script>
