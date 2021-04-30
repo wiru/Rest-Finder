@@ -34,7 +34,6 @@ export default new Vuex.Store({
             return res.data.allLocations;
           });
         const markers = locations.map((location) => (
-          console.log('🔥 ', location),
           {
           position: {
             lat: location.latitude,

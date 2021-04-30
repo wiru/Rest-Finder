@@ -20,6 +20,11 @@ exports.seed = function(knex) {
     const zip = location.Addresses[0].Zip;
     let phone;
     let fax;
+    const restaurants = []
+
+    for (const concept of location.Site.Concepts) {
+      restaurants.push(concept.Concept.Name)
+    }
     
     for (const contactMethod of location.ContactMethods) {
       if (contactMethod.Type.Name === "Main Phone") {
@@ -45,6 +50,7 @@ exports.seed = function(knex) {
         zip_code: zip,
         phone: phone,
         fax: fax,
+        restaurants: restaurants,
       })
     );
     console.log(`Inserting record ${++i} - /${name} into database... `);
