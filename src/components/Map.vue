@@ -1,7 +1,9 @@
 <template>
   <GmapMap
-    :zoom="5"
-    :center="{ lat: 35.7392, lng: -97.9903 }"
+    :zoom="4"
+    :min-zoom="3"
+    :max-zoom="5"
+    :center="{ lat: 38.7392, lng: -97.9903 }"
     map-type-id="terrain"
   >
     <GmapMarker
@@ -38,10 +40,16 @@ export default {
 
 <style scoped>
 .vue-map-container {
-  height: 50vh;
-  border-radius: 20px;
-  border: solid yellow 5px;
+  height: 500px;
+  border-radius: 10px;
+  border: solid rgb(255, 217, 0) 5px;
   overflow: hidden;
-  margin-right: 50px;
+}
+@media all and (max-width: 1080px) {
+  .vue-map-container {
+    height: 400px;
+    width: 80vw;
+    align-self: center;
+  }
 }
 </style>

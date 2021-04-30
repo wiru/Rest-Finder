@@ -12,6 +12,9 @@ const db = knex({
     tableName: "migrations",
     directory: "./migrations",
   },
+  seeds: {
+    directory: "./data",
+  },
   searchPath: "public",
 });
 
