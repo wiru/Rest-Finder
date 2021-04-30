@@ -26,13 +26,11 @@ const typeDefs = gql`
     state: String!
     city: String!
     highway: String!
+    zip_code: String!
+    address1: String!
+    subtype: String!
+    exit: String!
   }
-
-  type CityState {
-    city: String!
-    state: String!
-  }
-
 `;
 
 // RESOLVER
