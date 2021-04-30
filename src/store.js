@@ -23,8 +23,15 @@ export default new Vuex.Store({
             query: `{
               allLocations {
                   name
+                  subtype
                   latitude
                   longitude
+                  address1
+                  city 
+                  state
+                  zip_code
+                  highway
+                  exit
               }}`,
           }),
         })
