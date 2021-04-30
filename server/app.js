@@ -31,6 +31,7 @@ const typeDefs = gql`
     exit: String
     phone: String
     fax: String
+    restaurants: [String]
   }
 `;
 
