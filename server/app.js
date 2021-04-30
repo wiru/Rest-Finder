@@ -15,6 +15,7 @@ const typeDefs = gql`
     allLocations: [Location]
     allStates: [String]
     allCities(stateId: String): [String]
+    singleLocation(locationName: String): [Location]
   }
 
   type Location {
@@ -73,6 +74,16 @@ const resolvers = {
         });
       }
     },
+    singleLocation: (_, args) => {
+      return db.select("*")
+        .from("locations")
+        .where("name", args.locationName)
+        .then((data) => {
+          console.log(data);
+          return data;
+        });
+
+    }
   },
 };
 

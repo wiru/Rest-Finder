@@ -69,15 +69,21 @@ export default {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            query: `{
-              allLocations {
-                  subtype
-                  latitude
-                  longitude
-              }}`,
+            query: `{ 
+  singleLocation(locationName: "${truckStopname}") {
+        name
+        address1
+        zip_code
+        subtype
+        exit
+        phone
+        fax
+    		state
+    }
+}`,
           }),
-        });
-        console.log(`Received details for the location: ${JSON.stringify(locationDetails)}`);
+        }).then((data) => data.json())
+        .then((locationArrayObject) => locationArrayObject.data.singleLocation[0] );
         this.selectedSiteDetails = locationDetails;
       } catch (error) {
         console.error(error);

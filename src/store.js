@@ -21,7 +21,7 @@ export default new Vuex.Store({
           body: JSON.stringify({
             query: `{
               allLocations {
-                  subtype
+                  name
                   latitude
                   longitude
               }}`,

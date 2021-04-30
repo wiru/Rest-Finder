@@ -7,9 +7,9 @@
       <p>Address</p>
       <p>{{ selectedSiteDetails ? selectedSiteDetails.address1 : "" }}</p>
       <p>Type</p>
-      <p>{{ selectedSiteDetails ? selectedSiteDetails.type : "" }}</p>
+      <p>{{ selectedSiteDetails ? selectedSiteDetails.subtype : "" }}</p>
       <p>Zipcode</p>
-      <p>{{ selectedSiteDetails ? selectedSiteDetails.zipcode : "" }}</p>
+      <p>{{ selectedSiteDetails ? selectedSiteDetails["zip_code"] : "" }}</p>
       <p>Exit</p>
       <p>{{ selectedSiteDetails ? selectedSiteDetails.exit : "" }}</p>
       <p>Phone</p>
