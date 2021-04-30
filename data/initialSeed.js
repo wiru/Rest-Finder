@@ -18,6 +18,17 @@ exports.seed = function(knex) {
     const address1 = location.Addresses[0].Address1;
     const address2 = location.Addresses[0].Address2;
     const zip = location.Addresses[0].Zip;
+    let phone;
+    let fax;
+    
+    for (const contactMethod of location.ContactMethods) {
+      if (contactMethod.Type.Name = "Main Phone") {
+        phone = contactMethod.Data 
+      }
+      if (contactMethod.Type.Name = "Fax") {
+        fax = contactMethod.Data 
+      } 
+    }
 
     promiseTable.push(
       db("locations").insert({
@@ -32,6 +43,8 @@ exports.seed = function(knex) {
         address1: address1,
         address2: address2,
         zip_code: zip,
+        phone: phone,
+        fax: fax,
       })
     );
     console.log(`Inserting record ${++i} - /${name} into database... `);
@@ -43,3 +56,4 @@ exports.seed = function(knex) {
       return Promise.all(promiseTable);
     });
 };
+
