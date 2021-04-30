@@ -16,6 +16,12 @@
       <p>{{ selectedSiteDetails ? selectedSiteDetails.phone : "" }}</p>
       <p>Fax</p>
       <p>{{ selectedSiteDetails ? selectedSiteDetails.fax : "" }}</p>
+      <p>Restaurants</p>
+      <p>
+        {{
+          selectedSiteDetails ? selectedSiteDetails.restaurants.join(", ") : ""
+        }}
+      </p>
     </div>
   </div>
 </template>

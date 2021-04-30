@@ -79,6 +79,7 @@ export default {
         phone
         fax
     		state
+        restaurants
     }
 }`,
           }),
