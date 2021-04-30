@@ -8,7 +8,11 @@ const db = require("./knex");
     await db.migrate.latest();
     await db.seed.run(); //inelegant way to do this
     console.log("Starting express");
-    app.listen({ port: process.env.PORT || 4000 }, () => console.log("YoYO!"));
+    app.listen({ port: process.env.PORT || 4000 }, () =>
+      console.log(
+        `Express server listening on port ${process.env.PORT || 4000}`
+      )
+    );
   } catch (err) {
     console.error("Error starting app!", err);
     process.exit(-1);
