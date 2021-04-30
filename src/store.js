@@ -24,6 +24,7 @@ export default new Vuex.Store({
                   name
                   latitude
                   longitude
+                  subtype
               }}`,
           }),
         })
@@ -38,6 +39,10 @@ export default new Vuex.Store({
             lng: location.longitude,
           },
           key: location.name,
+          //"{ url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' }"
+          icon: `http://maps.google.com/mapfiles/ms/icons/${
+            location.subtype === "Travel Stop" ? "blue" : "red"
+          }-dot.png`,
           defaultAnimation: 2,
         }));
         commit("setLocations", markers);
