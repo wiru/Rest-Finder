@@ -16,7 +16,7 @@ export default new Vuex.Store({
   actions: {
     async loadMarkers({ commit }) {
       try {
-        const locations = await fetch("http://localhost:4000/graphql?", {
+        const locations = await fetch("/graphql?", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

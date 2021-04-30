@@ -1,22 +1,44 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>BIG MOTHER TRUCKERS!!!!!!!</h1>
     <div>
       <Map />
+    </div>
+    <div>
+      <FilterByState />
+    </div>
+    <div>
+      <TruckServices />
+    </div>
+    <div>
+      <StopType />
+    </div>
+    <div>
+      <Amenities />
+    </div>
+    <div>
+      <Restaurants />
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import FilterByState from "./components/FilterByState.vue";
+import Amenities from "./components/Amenities.vue";
+import Restaurants from "./components/Restaurants.vue"
+import TruckServices from "./components/TruckServices.vue";
+import StopType from "./components/StopType.vue";
 import Map from "./components/Map";
 
 export default {
   name: "app",
   components: {
-    HelloWorld,
+    FilterByState,
     Map,
+    Restaurants,
+    TruckServices,
+    Amenities,
+    StopType
   },
 };
 </script>
