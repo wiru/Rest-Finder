@@ -32,11 +32,13 @@ div {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  flex-grow: 2;
 }
 .detailedGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 5px;
+  flex-shrink: 0;
 }
 
 label {
