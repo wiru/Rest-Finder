@@ -18,14 +18,16 @@ const typeDefs = gql`
       highway: String
       truck_services: String
       subtype: String
+      hasOilChange: Boolean
+      hasLightMechanical: Boolean
+      hasTireCare: Boolean
     ): [Location]
     allStates: [String]
-    allCities(state: String): [String]
+    allCities(state: String, highway: String): [String]
     allHighways(state: String, city: String): [String]
     allStateCoords: [stateCoordinate]
     allCityCoords: [cityCoordinate]
     singleLocation(locationName: String): [Location]
-    
   }
 
   type stateCoordinate {
@@ -78,9 +80,14 @@ const resolvers = {
       if (args.subtype) {
         beforeFilterPromise = beforeFilterPromise.where("subtype", args.subtype);
       }
-      if (args.oilChange) {
-        beforeFilterPromise = beforeFilterPromise.filter((location) =>
-          location.truck_services.includes(args.oilChange));
+      if (args.hasOilChange) {
+        beforeFilterPromise = beforeFilterPromise.where("hasOilChange", args.hasOilChange)
+      }
+      if (args.hasLightMechanical) {
+        beforeFilterPromise = beforeFilterPromise.where("hasOilChange", args.hasLightMechanical)
+      }
+      if (args.hasTireCare) {
+        beforeFilterPromise = beforeFilterPromise.where("hasOilChange", args.hasTireCare)
       }
       return beforeFilterPromise;
     },

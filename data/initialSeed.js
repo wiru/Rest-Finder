@@ -22,7 +22,7 @@ exports.seed = function(knex) {
     let fax;
     const restaurants = [];
     const truck_services = []; // get rid of this on cleanup
-    let hasOilChange = false;
+    let hasOilChange = false; // (hasOilChange: )
     let hasLightMechanical = false;
     let hasTireCare = false;
 

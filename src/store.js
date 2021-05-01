@@ -11,6 +11,8 @@ export default new Vuex.Store({
     cityFinder: [],
     highwayFinder: [],
     selectedOptions: "",
+    selectedHighwayState: "",
+    selectedCityState: "",
     stateCoordinates: [],
     cityCoordinates: [],
     selectedZoom: 4,
@@ -30,8 +32,14 @@ export default new Vuex.Store({
     setHighwayList(state, highwayFinder) {
       state.highwayFinder = highwayFinder;
     },
-    setSelectedState(state, selectedState) {
-      state.currentState = selectedState;
+    setSelectedState(state, input) {
+      state.currentState = input;
+    },
+    setSelectedHighwayState(state, input) {
+      state.selectedHighwayState = input;
+    },
+    setSelectedCityState(state, input) {
+      state.selectedCityState = input;
     },
     setSelectedOptions(state, selectedOptions) {
       state.selectedOptions = selectedOptions;
@@ -132,12 +140,13 @@ export default new Vuex.Store({
     },
     async loadCities({ commit }) {
       try {
+        console.log("PPOP", this.state.selectedHighwayState);
         const cities = await fetch("/graphql?", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query: `{
-              allCities${this.state.currentState}
+              allCities${this.state.selectedHighwayState}
               }`,
           }),
         })
@@ -160,7 +169,7 @@ export default new Vuex.Store({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query: `{
-              allHighways${this.state.currentState} 
+              allHighways${this.state.selectedCityState} 
               }`,
           }),
         })

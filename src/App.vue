@@ -94,84 +94,60 @@ export default {
         console.error(error);
       }
     },
-    optionsChange(num) {
-      let result = "("; //(state: "NY")
-      // STATE -------------------------------------------------------------------
-      const e = document.getElementById("state-select");
-      let stateSelect =
-        e.selectedIndex !== 0 ? e.options[e.selectedIndex].text : undefined;
-      e.selectedIndex !== 0 ? (result += `state: "${stateSelect}"`) : 0;
-      e.selectedIndex !== 0
-        ? this.$store.commit("setGoogleStateView", e.selectedIndex - 1)
-        : this.$store.commit("resetGoogleView");
+    optionsChange(reset) {
+      reset ? document.getElementById("city-select").selectedIndex = 0 : 0;
+      let result = [];
+      let cityState = [];
+      let highwayState = [];
 
-      // CITY -------------------------------------------------------------------
+      const stateElement = document.getElementById("state-select");
+      stateElement.selectedIndex !== 0 ? result.push(`state: "${stateElement.options[stateElement.selectedIndex].text}"`) : 0;
+      stateElement.selectedIndex !== 0 ? cityState.push(`state: "${stateElement.options[stateElement.selectedIndex].text}"`) : 0;
+      stateElement.selectedIndex !== 0 ? highwayState.push(`state: "${stateElement.options[stateElement.selectedIndex].text}"`) : 0;
+
       const cityElement = document.getElementById("city-select");
-      num === 1 ? (cityElement.selectedIndex = 0) : 0;
-      //console.log(f.options[f.selectedIndex].text);
-      const citySelect =
-        cityElement.selectedIndex !== 0
-          ? cityElement.options[cityElement.selectedIndex].text
-          : undefined;
-      stateSelect && citySelect ? (result += ", ") : 0;
-      citySelect ? (result += `city: "${citySelect}"`) : 0;
-      cityElement.selectedIndex !== 0
-        ? this.$store.commit(
-            "setGoogleCityView",
-            cityElement.options[cityElement.selectedIndex].text
-          )
-        : 0;
-      // HIGHWAY ----------------------------------------------------------------
+      cityElement.selectedIndex !== 0 ? result.push(`city: "${cityElement.options[cityElement.selectedIndex].text}"`) : 0;
+      cityElement.selectedIndex !== 0 ? cityState.push(`city: "${cityElement.options[cityElement.selectedIndex].text}"`) : 0;
+
       const highwayElement = document.getElementById("highway-select");
-      const highwaySelect =
-        highwayElement.selectedIndex !== 0
-          ? highwayElement.options[highwayElement.selectedIndex].text
-          : undefined;
-      (stateSelect && highwaySelect) || (citySelect && highwaySelect)
-        ? (result += ", ")
-        : 0;
-      // TRAVEL STOP  ---------------------------------------------------------------
-      const travelStopElement = document.getElementById("travel-stop");
-      const travelStopSelect = travelStopElement.checked
-        ? 'subtype: "Travel Stop"'
-        : undefined;
+      highwayElement.selectedIndex !== 0 ? result.push(`highway: "${highwayElement.options[highwayElement.selectedIndex].text}"`) : 0;
+      highwayElement.selectedIndex !== 0 ? highwayState.push(`city: "${highwayElement.options[highwayElement.selectedIndex].text}"`) : 0;
 
-      stateSelect && travelStopSelect ||
-      citySelect && travelStopSelect ||
-      highwaySelect && travelStopSelect
-        ? (result += ", ")
-        : 0;
+      const countryStoreBool = document.getElementById("country-store").checked;
+      const travelStopBool = document.getElementById("travel-stop").checked;
 
-      // COUNTRY STORE  ---------------------------------------------------------------
-      const countryStoreElement = document.getElementById("country-store");
-      const countryStoreSelect = countryStoreElement.checked
-        ? 'subtype: "Country Store" '
-        : undefined;
-      !travelStopSelect && countryStoreSelect
-        ? (result += countryStoreSelect)
-        : 0;
-      travelStopSelect && !countryStoreSelect
-        ? (result += travelStopSelect)
-        : 0;
-      // (stateSelect && countryStoreSelect) ||
-      // (citySelect && countryStoreSelect) ||
-      // highwaySelect || countryStoreSelect ||
-      //   ?  (travelStopSelect || countryStoreSelect)
-      //     (result += ", ")
-      //   : 0;
+      !countryStoreBool && travelStopBool ? result.push(`subtype: "Travel Stop"`) : 0;  
+      !travelStopBool && countryStoreBool ? result.push(`subtype: "Country Store"`) : 0;
 
-      console.log(highwaySelect);
-      console.log(citySelect);
-      highwaySelect ? (result += `highway: "${highwaySelect}"`) : 0;
-      result += ")";
-      result === "()" ? (result = "") : 0;
-      console.log(result);
-      //   console.log("THIS IS THE RESULT", result);
-      //   console.log("DROPDOWN DATA", stateSelect);
-      stateSelect?stateSelect = `(state: "${stateSelect}")` : ""; 
+      const oilChangeBool = document.getElementById("oil-change").checked;
+      oilChangeBool ? result.push(`hasOilChange: true`) : 0;
+
+      const lightMechanicalBool = document.getElementById("light-mechanical").checked;
+      lightMechanicalBool ? result.push(`hasLightMechanical: true`) : 0;
+
+      const tireCareBool = document.getElementById("tire-care").checked;
+      tireCareBool ? result.push(`hasTireCare: true`) : 0;
+
+      let resultString = `(${result.join(", ")})`;
+      resultString === "()" ? resultString = "" : 0;
+
+      let cityStateString = ` (${cityState.join(", ")})`;
+      console.log("CSS0", cityStateString)
+      cityStateString === "()" ? cityStateString = "" : 0;
+
+      let highwayStateString = `(${highwayState.join(", ")})`;
+      console.log("HSS0", highwayStateString)
+      highwayStateString === "()" ? highwayStateString = "" : 0;
+
+      let stateSelect = stateElement.selectedIndex !== 0 ? `(state: "${stateElement.options[stateElement.selectedIndex].text}")` : "";
+      // let citySelect = cityElement.selectedIndex !== 0 ? `city: "${cityElement.options[cityElement.selectedIndex].text}"` : "";
+      console.log("CSS", cityStateString)
+      console.log("HSS", highwayStateString)
 
       this.$store.commit("setSelectedState", stateSelect);
-      this.$store.commit("setSelectedOptions", result);
+      this.$store.commit("setSelectedHighwayState", highwayStateString);
+      this.$store.commit("setSelectedCityState", cityStateString);
+      this.$store.commit("setSelectedOptions", resultString);
       this.$store.dispatch("loadMarkers");
       this.$store.dispatch("loadCities");
       this.$store.dispatch("loadHighways");
