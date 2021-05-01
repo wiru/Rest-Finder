@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -74,12 +73,12 @@ export default new Vuex.Store({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query: `{
-              allLocations${this.state.selectedOptions} { 
-                subtype
-                latitude
-                longitude
-              }
-            }`,
+              allLocations {
+                  name
+                  latitude
+                  longitude
+                  subtype
+              }}`,
           }),
         })
           .then((res) => res.json())
@@ -87,13 +86,16 @@ export default new Vuex.Store({
             // console.log(res.data.allLocations);
             return res.data.allLocations;
           });
-        const markers = locations.map((location) => (
-          {
+        const markers = locations.map((location) => ({
           position: {
             lat: location.latitude,
             lng: location.longitude,
           },
           key: location.name,
+          //"{ url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' }"
+          icon: `http://maps.google.com/mapfiles/ms/icons/${
+            location.subtype === "Travel Stop" ? "blue" : "red"
+          }-dot.png`,
           defaultAnimation: 2,
         }));
         commit("setLocations", markers);

@@ -29,8 +29,10 @@
 <script>
 export default {
   name: "Restaurants",
-  props: {
-    msg: String,
+  data: function() {
+    return {
+      checkedRestaurants: "",
+    };
   },
 };
 </script>

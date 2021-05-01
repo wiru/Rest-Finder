@@ -22,31 +22,78 @@
         <Restaurants /> -->
       </div>
       <div id="column2">
-        <Map />
+        <Map v-on:marker-selected="fillDetailPane($event)" />
+        <DetailPanel
+          v-if="markerSelected"
+          :selectedSite="selectedSite"
+          :selectedSiteDetails="selectedSiteDetails"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-/* import FilterByState from "./components/FilterByState.vue"; */
 // import Amenities from "./components/Amenities.vue";
 // import Restaurants from "./components/Restaurants.vue";
 // import TruckServices from "./components/TruckServices.vue";
 // import StopType from "./components/StopType.vue";
 import Map from "./components/Map";
 import FilterByState from "./components/FilterByState.vue";
+import DetailPanel from "./components/DetailPanel.vue";
 
 export default {
   name: "app",
+  data: function() {
+    return {
+      markerSelected: false,
+      selectedSite: "",
+      selectedSiteDetails: {},
+    };
+  },
   components: {
-    /* FilterByState, */
+    FilterByState,
     Map,
     // Restaurants,
     // TruckServices,
     // Amenities,
     // StopType,
-    FilterByState,
+    DetailPanel,
+  },
+  methods: {
+    async fillDetailPane(truckStopname) {
+      this.markerSelected = true;
+      this.selectedSite = truckStopname;
+      console.log(`Event triggered: ${truckStopname}`);
+      try {
+        const locationDetails = await fetch("/graphql?", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: `{ 
+  singleLocation(locationName: "${truckStopname}") {
+        name
+        address1
+        zip_code
+        subtype
+        exit
+        phone
+        fax
+    		state
+        restaurants
+    }
+}`,
+          }),
+        })
+          .then((data) => data.json())
+          .then(
+            (locationArrayObject) => locationArrayObject.data.singleLocation[0]
+          );
+        this.selectedSiteDetails = locationDetails;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
 };
 </script>

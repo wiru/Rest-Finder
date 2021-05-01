@@ -11,9 +11,10 @@
     <GmapMarker
       v-for="location in locations"
       :key="location.key"
+      :icon="{ url: `${location.icon}` }"
       :position="location.position"
       :animation="location.defaultAnimation"
-      @rightclick="markerRightClicked"
+      @click="$emit('marker-selected', location.key)"
     />
   </GmapMap>
 </template>
@@ -25,7 +26,7 @@ export default {
   mounted() {
     this.getLocations();
     this.getAllCoords();
-    console.log("WAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    // console.log("WAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   },
   computed: {
     locations() {
