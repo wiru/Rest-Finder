@@ -12,9 +12,24 @@ const app = express();
 // SCHEMA
 const typeDefs = gql`
   type Query {
-    allLocations: [Location]
+    allLocations(state: String, city: String, highway: String): [Location]
     allStates: [String]
-    allCities(stateId: String): [String]
+    allCities(state: String): [String]
+    allStateCoords: [stateCoordinate]
+    allCityCoords: [cityCoordinate]
+    singleLocation(locationName: String): [Location]
+  }
+
+  type stateCoordinate {
+    latitude: Float
+    longitude: Float
+    state: String
+  }
+
+  type cityCoordinate {
+    latitude: Float
+    longitude: Float
+    city: String
   }
 
   type Location {
@@ -31,20 +46,23 @@ const typeDefs = gql`
     exit: String
     phone: String
     fax: String
+    restaurants: [String]
   }
 `;
 
 // RESOLVER
 const resolvers = {
   Query: {
-    allLocations: () => {
-      return db
-        .select("*")
-        .from("locations")
-        .then((data) => {
-          // console.log(data);
-          return data;
-        });
+    allLocations: (parent, args) => {
+      let beforeFilterPromise = db.select("*").from("locations");
+      if (args.state) {
+        beforeFilterPromise = beforeFilterPromise.where("state", args.state);
+      }
+      if (args.city) {
+        beforeFilterPromise = beforeFilterPromise.where("city", args.city);
+      }
+
+      return beforeFilterPromise;
     },
     allStates: () => {
       return db
@@ -63,8 +81,8 @@ const resolvers = {
         .distinct("city")
         .orderBy("city")
         .from("locations");
-      if (args.stateId) {
-        return commonPromise.where("state", args.stateId).then((data) => {
+      if (args.state) {
+        return commonPromise.where("state", args.state).then((data) => {
           return data.map((cityObj) => cityObj.city);
         });
       } else {
@@ -72,6 +90,30 @@ const resolvers = {
           return data.map((cityObj) => cityObj.city);
         });
       }
+    },
+    // select state,avg(latitude) as avglat, avg(longitude) as avglg from locations group by state;
+    allStateCoords: () => {
+      return db
+        .select("state")
+        .distinct("state")
+        .orderBy("state")
+        .from("locations")
+        .groupBy("state")
+        .avg("latitude as latitude")
+        .avg("longitude as longitude")
+        .then((data) => {
+          return data;
+        });
+    },
+    allCityCoords: () => {
+      return db
+        .select("city", "latitude", "longitude")
+        .orderBy("city")
+        .from("locations")
+        .then((data) => {
+          // console.log(data);
+          return data;
+        });
     },
   },
 };
@@ -93,20 +135,5 @@ app.use(express.static(__dirname));
 
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, "..", "dist")));
-
-// app.get("/api/locations", async (req, res) => {
-//   try {
-//     const locations = await db.select().table("locations");
-//     res.json(locations);
-//   } catch (err) {
-//     console.error("Error loading locations!", err);
-//     res.sendStatus(500);
-//   }
-// });
-
-// // Always return the main index.html, since we are developing a single page application
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "..", "dist", "index.html"));
-// });
 
 module.exports = app;

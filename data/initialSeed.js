@@ -10,8 +10,8 @@ exports.seed = function(knex) {
     const latitude = location.Site.Latitude;
     const longitude = location.Site.Longitude;
     const name = location.Site.SiteName;
-    const state = location.Addresses[0].State; // there may be some locations with more than one address? 
-    const city = location.Addresses[0].City; // there may be some locations with more than one address? 
+    const state = location.Addresses[0].State; // there may be some locations with more than one address?
+    const city = location.Addresses[0].City; // there may be some locations with more than one address?
     const highway = location.Site.Highway;
     const subtype = location.FacilitySubtype.Name;
     const exit = location.Site.ExitNumber;
@@ -20,14 +20,19 @@ exports.seed = function(knex) {
     const zip = location.Addresses[0].Zip;
     let phone;
     let fax;
-    
+    const restaurants = [];
+
+    for (const concept of location.Site.Concepts) {
+      restaurants.push(concept.Concept.Name);
+    }
+
     for (const contactMethod of location.ContactMethods) {
       if (contactMethod.Type.Name === "Main Phone") {
-        phone = contactMethod.Data 
+        phone = contactMethod.Data;
       }
       if (contactMethod.Type.Name === "Fax") {
-        fax = contactMethod.Data 
-      } 
+        fax = contactMethod.Data;
+      }
     }
 
     promiseTable.push(
@@ -45,6 +50,7 @@ exports.seed = function(knex) {
         zip_code: zip,
         phone: phone,
         fax: fax,
+        restaurants: restaurants,
       })
     );
     console.log(`Inserting record ${++i} - /${name} into database... `);
@@ -56,4 +62,3 @@ exports.seed = function(knex) {
       return Promise.all(promiseTable);
     });
 };
-
