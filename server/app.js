@@ -48,7 +48,9 @@ const typeDefs = gql`
     phone: String
     fax: String
     restaurants: [String]
-    truck_services: [String]
+    hasLightMechanical: Boolean
+    hasOilChange: Boolean
+    hasTireCare: Boolean
   }
 `;
 
