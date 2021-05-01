@@ -2,7 +2,7 @@
   <div class="options">
     <form>
       <!-- State select dropdown -->
-      <select name="location" id="state-select" @change="optionsChange(1)">
+      <select name="location" id="state-select" @change="$emit('refresh-maps', 1)">
         <option value="">select state</option>
         <option
           value="location"
@@ -12,7 +12,7 @@
         </option>
       </select>
       <!-- City select dropdown -->
-      <select name="city" id="city-select" @change="optionsChange()">
+      <select name="city" id="city-select" @change="$emit('refresh-maps')">
         <option>select city</option>
         <option
           value="city"
@@ -22,7 +22,7 @@
         </option>
       </select>
       <!-- Highway select dropdown -->
-      <select name="highway" id="highway-select" @change="optionsChange()">
+      <select name="highway" id="highway-select" @change="$emit('refresh-maps')">
         <option>select highway</option>
         <option
           value="highway"
@@ -45,7 +45,7 @@ export default {
   mounted() {
     this.getStates();
     this.getHighways();
-    console.log("THE SECOND MOUNTING")
+    console.log("THE SECOND MOUNTING");
   },
   data: function() {
     return {
@@ -61,61 +61,6 @@ export default {
     },
     getHighways() {
       this.$store.dispatch("loadHighways");
-    },
-    optionsChange(num) {
-      let result = "("; //(state: "NY")
-      // State
-      const e = document.getElementById("state-select");
-      const stateSelect =
-        e.selectedIndex !== 0 ? e.options[e.selectedIndex].text : undefined;
-      e.selectedIndex !== 0 ? (result += `state: "${stateSelect}"`) : 0;
-      e.selectedIndex !== 0
-        ? this.$store.commit("setGoogleStateView", e.selectedIndex - 1)
-        : this.$store.commit("resetGoogleView");
-
-      // City
-      const cityElement = document.getElementById("city-select");
-      num === 1 ? (cityElement.selectedIndex = 0) : 0;
-      //console.log(f.options[f.selectedIndex].text);
-      const citySelect =
-        cityElement.selectedIndex !== 0
-          ? cityElement.options[cityElement.selectedIndex].text
-          : undefined;
-      stateSelect && citySelect ? (result += ", ") : 0;
-      citySelect ? (result += `city: "${citySelect}"`) : 0;
-      cityElement.selectedIndex !== 0
-        ? this.$store.commit(
-            "setGoogleCityView",
-            cityElement.options[cityElement.selectedIndex].text
-          )
-        : 0;
-      // Highway
-      const highwayElement = document.getElementById("highway-select");
-      const highwaySelect =
-        highwayElement.selectedIndex !== 0
-          ? highwayElement.options[highwayElement.selectedIndex].text
-          : undefined;
-      (citySelect && highwaySelect) || (citySelect && highwaySelect)
-        ? (result += ", ")
-        : 0;
-      // Truck services 
-      // MAKE STRING
-
-      console.log(highwaySelect);
-      console.log(citySelect);
-      highwaySelect ? (result += `highway: "${highwaySelect}"`) : 0;
-      result += ")";
-      result === "()" ? (result = "") : 0;
-      console.log(result);
-      //   console.log("THIS IS THE RESULT", result);
-      //   console.log("DROPDOWN DATA", stateSelect);
-      this.$store.commit("setSelectedState", stateSelect);
-      this.$store.commit("setSelectedOptions", result);
-      this.$store.dispatch("loadMarkers");
-      this.$store.dispatch("loadCities");
-      this.$store.dispatch("loadHighways");
-
-      // call loadMarkers or not.
     },
     resetView() {
       console.log("SUP!");

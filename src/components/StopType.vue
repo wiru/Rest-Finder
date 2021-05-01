@@ -1,24 +1,24 @@
 <template>
   <div class="options">
-    type:
-    <input type="checkbox" id="Type-1" value="Type-1" v-model="checkedTypes" />
-    <label for="Type-1">Trash</label>
-    <input type="checkbox" id="Type-2" value="Type-2" v-model="checkedTypes" />
-    <label for="Type-2"
-      >Less Trash, but kind of trash still, but it will do</label
-    >
-    <span> Checked Types: {{ checkedTypes }}</span>
+    Stop Type:
+    <input
+      type="checkbox"
+      id="travel-stop"
+      @click="$emit('refresh-maps')"
+    />
+    <label for="Type-1">Travel Stop</label>
+    <input
+      type="checkbox"
+      id="country-store"
+      @click="$emit('refresh-maps')"
+    />
+    <label for="Type-2">Country Store</label>
   </div>
 </template>
 
 <script>
 export default {
   name: "StopTypes",
-  data: function() {
-    return {
-      checkedTypes: "",
-    };
-  },
 };
 </script>
 

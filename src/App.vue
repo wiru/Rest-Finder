@@ -14,12 +14,12 @@
     </div>
     <div id="flexbox-container">
       <div id="column1">
-        <FilterByState />
+        <FilterByState @refresh-maps="optionsChange($event)" />
         <!-- v-bind:locations="locations" -->
-        <!-- <TruckServices />
-        <StopType />
-        <Amenities /> -->
-        <Restaurants /> -->
+        <TruckServices @refresh-maps="optionsChange($event)" />
+        <StopType @refresh-maps="optionsChange($event)" />
+        <!-- <Amenities /> -->
+        <!-- <Restaurants /> -->
       </div>
       <div id="column2">
         <Map v-on:marker-selected="fillDetailPane($event)" />
@@ -35,9 +35,9 @@
 
 <script>
 // import Amenities from "./components/Amenities.vue";
-import Restaurants from "./components/Restaurants.vue";
-// import TruckServices from "./components/TruckServices.vue";
-// import StopType from "./components/StopType.vue";
+// import Restaurants from "./components/Restaurants.vue";
+import TruckServices from "./components/TruckServices.vue";
+import StopType from "./components/StopType.vue";
 import Map from "./components/Map";
 import FilterByState from "./components/FilterByState.vue";
 import DetailPanel from "./components/DetailPanel.vue";
@@ -54,10 +54,10 @@ export default {
   components: {
     FilterByState,
     Map,
-    Restaurants,
-    // TruckServices,
+    // Restaurants,
+    TruckServices,
     // Amenities,
-    // StopType,
+    StopType,
     DetailPanel,
   },
   methods: {
@@ -93,6 +93,90 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    optionsChange(num) {
+      let result = "("; //(state: "NY")
+      // STATE -------------------------------------------------------------------
+      const e = document.getElementById("state-select");
+      let stateSelect =
+        e.selectedIndex !== 0 ? e.options[e.selectedIndex].text : undefined;
+      e.selectedIndex !== 0 ? (result += `state: "${stateSelect}"`) : 0;
+      e.selectedIndex !== 0
+        ? this.$store.commit("setGoogleStateView", e.selectedIndex - 1)
+        : this.$store.commit("resetGoogleView");
+
+      // CITY -------------------------------------------------------------------
+      const cityElement = document.getElementById("city-select");
+      num === 1 ? (cityElement.selectedIndex = 0) : 0;
+      //console.log(f.options[f.selectedIndex].text);
+      const citySelect =
+        cityElement.selectedIndex !== 0
+          ? cityElement.options[cityElement.selectedIndex].text
+          : undefined;
+      stateSelect && citySelect ? (result += ", ") : 0;
+      citySelect ? (result += `city: "${citySelect}"`) : 0;
+      cityElement.selectedIndex !== 0
+        ? this.$store.commit(
+            "setGoogleCityView",
+            cityElement.options[cityElement.selectedIndex].text
+          )
+        : 0;
+      // HIGHWAY ----------------------------------------------------------------
+      const highwayElement = document.getElementById("highway-select");
+      const highwaySelect =
+        highwayElement.selectedIndex !== 0
+          ? highwayElement.options[highwayElement.selectedIndex].text
+          : undefined;
+      (stateSelect && highwaySelect) || (citySelect && highwaySelect)
+        ? (result += ", ")
+        : 0;
+      // TRAVEL STOP  ---------------------------------------------------------------
+      const travelStopElement = document.getElementById("travel-stop");
+      const travelStopSelect = travelStopElement.checked
+        ? 'subtype: "Travel Stop"'
+        : undefined;
+
+      stateSelect && travelStopSelect ||
+      citySelect && travelStopSelect ||
+      highwaySelect && travelStopSelect
+        ? (result += ", ")
+        : 0;
+
+      // COUNTRY STORE  ---------------------------------------------------------------
+      const countryStoreElement = document.getElementById("country-store");
+      const countryStoreSelect = countryStoreElement.checked
+        ? 'subtype: "Country Store" '
+        : undefined;
+      !travelStopSelect && countryStoreSelect
+        ? (result += countryStoreSelect)
+        : 0;
+      travelStopSelect && !countryStoreSelect
+        ? (result += travelStopSelect)
+        : 0;
+      // (stateSelect && countryStoreSelect) ||
+      // (citySelect && countryStoreSelect) ||
+      // highwaySelect || countryStoreSelect ||
+      //   ?  (travelStopSelect || countryStoreSelect)
+      //     (result += ", ")
+      //   : 0;
+
+      console.log(highwaySelect);
+      console.log(citySelect);
+      highwaySelect ? (result += `highway: "${highwaySelect}"`) : 0;
+      result += ")";
+      result === "()" ? (result = "") : 0;
+      console.log(result);
+      //   console.log("THIS IS THE RESULT", result);
+      //   console.log("DROPDOWN DATA", stateSelect);
+      stateSelect?stateSelect = `(state: "${stateSelect}")` : ""; 
+
+      this.$store.commit("setSelectedState", stateSelect);
+      this.$store.commit("setSelectedOptions", result);
+      this.$store.dispatch("loadMarkers");
+      this.$store.dispatch("loadCities");
+      this.$store.dispatch("loadHighways");
+
+      // call loadMarkers or not.
     },
   },
 };

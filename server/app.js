@@ -17,6 +17,7 @@ const typeDefs = gql`
       city: String
       highway: String
       truck_services: String
+      subtype: String
     ): [Location]
     allStates: [String]
     allCities(state: String): [String]
@@ -69,10 +70,14 @@ const resolvers = {
         beforeFilterPromise = beforeFilterPromise.where("city", args.city);
       }
       if (args.highway) {
-        beforeFilterPromise = beforeFilterPromise.where(
-          "highway",
-          args.highway
-        );
+        beforeFilterPromise = beforeFilterPromise.where("highway", args.highway);
+      }
+      if (args.subtype) {
+        beforeFilterPromise = beforeFilterPromise.where("subtype", args.subtype);
+      }
+      if (args.oilChange) {
+        beforeFilterPromise = beforeFilterPromise.filter((location) =>
+          location.truck_services.includes(args.oilChange));
       }
       return beforeFilterPromise;
     },
@@ -111,7 +116,7 @@ const resolvers = {
         .from("locations")
         .groupBy("highway")
         .avg("latitude as latitude")
-        .avg("longitude as longitude");
+        .avg("longitude as longitude")
       if (args.state && args.city) {
         return commonPromise
           .where("state", args.state)
@@ -132,12 +137,12 @@ const resolvers = {
       } else if (args.city) {
         return commonPromise.where("city", args.city).then((data) => {
           console.log(data);
-          return data.map((highwayObj) => highwayObj.highway);
+          return data.filter((highwayObj) => !!highwayObj.highway).map((highwayObj) => highwayObj.highway);
         });
       } else {
         return commonPromise.then((data) => {
           console.log(data);
-          return data.map((highwayObj) => highwayObj.highway);
+          return data.filter((highwayObj) => !!highwayObj.highway).map((highwayObj) => highwayObj.highway);
         });
       }
     },

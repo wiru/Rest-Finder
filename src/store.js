@@ -137,7 +137,7 @@ export default new Vuex.Store({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query: `{
-              allCities(state: "${this.state.currentState}")
+              allCities${this.state.currentState}
               }`,
           }),
         })
@@ -160,7 +160,7 @@ export default new Vuex.Store({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query: `{
-              allHighways${this.state.currentState || ""} 
+              allHighways${this.state.currentState} 
               }`,
           }),
         })
