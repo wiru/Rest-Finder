@@ -21,17 +21,20 @@ exports.seed = function(knex) {
     let phone;
     let fax;
     const restaurants = [];
-    const truck_services = [];
+    const truck_services = []; // get rid of this on cleanup
+    let hasOilChange = false;
+    let hasLightMechanical = false;
+    let hasTireCare = false;
 
     for (const customField of location.CustomFields) {
       if (customField.CustomField.Label === 'Commercial Truck Oil Change') {
-        truck_services.push(customField.CustomField.Label);
+        hasOilChange = true;
       }
       if (customField.CustomField.Label === 'Light Mechanical') {
-        truck_services.push(customField.CustomField.Label);
+        hasLightMechanical = true;
       }
       if (customField.CustomField.DisplayName === 'Truck Tire Care') {
-        truck_services.push(customField.CustomField.DisplayName);
+        hasTireCare = true;
       }
     }
 
@@ -64,7 +67,10 @@ exports.seed = function(knex) {
         phone: phone,
         fax: fax,
         restaurants: restaurants,
-        truck_services: truck_services,
+        truck_services: truck_services, // get rid of this on cleanup
+        hasOilChange: hasOilChange,
+        hasLightMechanical: hasLightMechanical,
+        hasTireCare: hasTireCare,
       })
     );
     console.log(`Inserting record ${++i} - /${name} into database... `);
