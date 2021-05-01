@@ -1,6 +1,7 @@
 <template>
   <div class="options">
     <form>
+      <!-- State select dropdown -->
       <select name="location" id="state-select" @change="optionsChange(1)">
         <option value="">select state</option>
         <option
@@ -10,6 +11,7 @@
           >{{ location }}
         </option>
       </select>
+      <!-- City select dropdown -->
       <select name="city" id="city-select" @change="optionsChange()">
         <option>select city</option>
         <option
@@ -19,7 +21,17 @@
           >{{ city }}
         </option>
       </select>
-      <button type="button" id="reset-btn" />
+      <!-- Highway select dropdown -->
+      <select name="highway" id="highway-select" @change="optionsChange()">
+        <option>select highway</option>
+        <option
+          value="highway"
+          v-for="highway in this.$store.state.highwayFinder"
+          :key="highway"
+          >{{ highway }}
+        </option>
+      </select>
+      <!-- <button type="button" id="reset-btn" /> -->
     </form>
   </div>
 </template>
@@ -32,9 +44,8 @@
 export default {
   mounted() {
     this.getStates();
-    document
-      .getElementById("reset-btn")
-      .addEventListener("click", this.resetView);
+    this.getHighways();
+    console.log("THE SECOND MOUNTING")
   },
   data: function() {
     return {
@@ -48,6 +59,9 @@ export default {
     getStates() {
       this.$store.dispatch("loadStates");
     },
+    getHighways() {
+      this.$store.dispatch("loadHighways");
+    },
     optionsChange(num) {
       let result = "("; //(state: "NY")
       // State
@@ -60,27 +74,36 @@ export default {
         : this.$store.commit("resetGoogleView");
 
       // City
-      const f = document.getElementById("city-select");
-      num === 1 ? (f.selectedIndex = 0) : 0;
+      const cityElement = document.getElementById("city-select");
+      num === 1 ? (cityElement.selectedIndex = 0) : 0;
       //console.log(f.options[f.selectedIndex].text);
       const citySelect =
-        f.selectedIndex !== 0 ? f.options[f.selectedIndex].text : undefined;
+        cityElement.selectedIndex !== 0
+          ? cityElement.options[cityElement.selectedIndex].text
+          : undefined;
       stateSelect && citySelect ? (result += ", ") : 0;
       citySelect ? (result += `city: "${citySelect}"`) : 0;
-      f.selectedIndex !== 0
+      cityElement.selectedIndex !== 0
         ? this.$store.commit(
             "setGoogleCityView",
-            f.options[f.selectedIndex].text
+            cityElement.options[cityElement.selectedIndex].text
           )
         : 0;
+      // Highway
+      const highwayElement = document.getElementById("highway-select");
+      const highwaySelect =
+        highwayElement.selectedIndex !== 0
+          ? highwayElement.options[highwayElement.selectedIndex].text
+          : undefined;
+      (citySelect && highwaySelect) || (citySelect && highwaySelect)
+        ? (result += ", ")
+        : 0;
+      // Truck services 
+      // MAKE STRING
 
-      //setGoogleView
-
-      // // Highway
-      // const g = document.getElementById("highway-select");
-      // const highwaySelect = e.options[e.selectedIndex].text;
-      // (citySelect&&highwaySelect||citySelect&&highwaySelect)?result.concat(", ") : 0 ;
-      // highwaySelect?result.concat("highway: " + highwaySelect):0;
+      console.log(highwaySelect);
+      console.log(citySelect);
+      highwaySelect ? (result += `highway: "${highwaySelect}"`) : 0;
       result += ")";
       result === "()" ? (result = "") : 0;
       console.log(result);
@@ -90,6 +113,7 @@ export default {
       this.$store.commit("setSelectedOptions", result);
       this.$store.dispatch("loadMarkers");
       this.$store.dispatch("loadCities");
+      this.$store.dispatch("loadHighways");
 
       // call loadMarkers or not.
     },

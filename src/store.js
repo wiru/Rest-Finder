@@ -9,6 +9,7 @@ export default new Vuex.Store({
     stateFinder: [],
     currentState: "",
     cityFinder: [],
+    highwayFinder: [],
     selectedOptions: "",
     stateCoordinates: [],
     cityCoordinates: [],
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     setCityList(state, cityFinder) {
       state.cityFinder = cityFinder;
     },
+    setHighwayList(state, highwayFinder) {
+      state.highwayFinder = highwayFinder;
+    },
     setSelectedState(state, selectedState) {
       state.currentState = selectedState;
     },
@@ -38,7 +42,7 @@ export default new Vuex.Store({
       state.selectedZoom = 6;
     },
     setGoogleCityView(state, input) {
-      console.log("Hi");
+      // console.log("Hi");
       let selectedCity = state.cityCoordinates.find(function(cityObj) {
         if (cityObj.city == input) return true;
       });
@@ -73,7 +77,7 @@ export default new Vuex.Store({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query: `{
-              allLocations {
+              allLocations${this.state.selectedOptions}{
                   name
                   latitude
                   longitude
@@ -83,9 +87,10 @@ export default new Vuex.Store({
         })
           .then((res) => res.json())
           .then((res) => {
-            // console.log(res.data.allLocations);
+            console.log(res.data.allLocations);
             return res.data.allLocations;
           });
+        console.log(this.state.selectedOptions);
         const markers = locations.map((location) => ({
           position: {
             lat: location.latitude,
@@ -142,6 +147,29 @@ export default new Vuex.Store({
             return res.data.allCities;
           });
         commit("setCityList", cities);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    async loadHighways({ commit }) {
+      try {
+        console.log("AAAAAHHHHHHHHHHHH");
+        const highways = await fetch("/graphql?", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: `{
+              allHighways${this.state.currentState || ""} 
+              }`,
+          }),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            return res.data.allHighways;
+          });
+          console.log(highways)
+        commit("setHighwayList", highways);
       } catch (err) {
         console.error(err);
       }

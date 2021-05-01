@@ -18,7 +18,7 @@
         <!-- v-bind:locations="locations" -->
         <!-- <TruckServices />
         <StopType />
-        <Amenities />
+        <Amenities /> -->
         <Restaurants /> -->
       </div>
       <div id="column2">
@@ -35,7 +35,7 @@
 
 <script>
 // import Amenities from "./components/Amenities.vue";
-// import Restaurants from "./components/Restaurants.vue";
+import Restaurants from "./components/Restaurants.vue";
 // import TruckServices from "./components/TruckServices.vue";
 // import StopType from "./components/StopType.vue";
 import Map from "./components/Map";
@@ -54,7 +54,7 @@ export default {
   components: {
     FilterByState,
     Map,
-    // Restaurants,
+    Restaurants,
     // TruckServices,
     // Amenities,
     // StopType,
@@ -111,37 +111,43 @@ body {
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
   margin-block-start: 0px;
   overflow: auto;
+  width: 90%;
+  margin: auto;
 }
 header {
   display: flex;
   margin: auto;
-  width: min(1200px, 75%);
+  width: 82%;
   margin-top: 20px;
   justify-content: left;
   color: rgb(255, 217, 0);
   font-size: 2rem;
   margin-bottom: -20px;
 }
+h1 {
+  margin-top: 50px;
+  margin-left: 35px;
+  font-family: "lobster";
+  font-size: 5rem;
+  z-index: 2;
+}
 #header-logo {
-  max-width: 150px;
+  max-width: 250px;
   padding: 10px;
   height: auto;
   object-fit: cover;
+  z-index: 2;
 }
-h1 {
-  font-family: "lobster";
-}
+
 #flexbox-container {
   display: flex;
   flex-direction: row;
-  width: min(1200px, 90%);
+  width: 100%;
   justify-content: center;
   margin: auto;
   z-index: 0;
@@ -209,16 +215,12 @@ h1 {
   width: 100%;
   max-height: 250px;
   position: absolute;
-  z-index: -1;
+  z-index: 1;
 }
 
 @media all and (max-width: 1080px) {
   #flexbox-container {
     flex-direction: column-reverse;
-  }
-  h1 {
-    margin-top: auto;
-    margin-bottom: auto;
   }
   header {
     display: flex;

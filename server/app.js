@@ -12,9 +12,15 @@ const app = express();
 // SCHEMA
 const typeDefs = gql`
   type Query {
-    allLocations(state: String, city: String, highway: String): [Location]
+    allLocations(
+      state: String
+      city: String
+      highway: String
+      truck_services: String
+    ): [Location]
     allStates: [String]
     allCities(state: String): [String]
+    allHighways(state: String, city: String): [String]
     allStateCoords: [stateCoordinate]
     allCityCoords: [cityCoordinate]
     singleLocation(locationName: String): [Location]
@@ -47,6 +53,7 @@ const typeDefs = gql`
     phone: String
     fax: String
     restaurants: [String]
+    truck_services: [String]
   }
 `;
 
@@ -61,7 +68,12 @@ const resolvers = {
       if (args.city) {
         beforeFilterPromise = beforeFilterPromise.where("city", args.city);
       }
-
+      if (args.highway) {
+        beforeFilterPromise = beforeFilterPromise.where(
+          "highway",
+          args.highway
+        );
+      }
       return beforeFilterPromise;
     },
     allStates: () => {
@@ -91,7 +103,44 @@ const resolvers = {
         });
       }
     },
-    // select state,avg(latitude) as avglat, avg(longitude) as avglg from locations group by state;
+    allHighways: (_, args) => {
+      const commonPromise = db
+        .select("highway")
+        .distinct("highway")
+        .orderBy("highway")
+        .from("locations")
+        .groupBy("highway")
+        .avg("latitude as latitude")
+        .avg("longitude as longitude");
+      if (args.state && args.city) {
+        return commonPromise
+          .where("state", args.state)
+          .where("city", args.city)
+          .then((data) => {
+            return data.map((highwayObj) => {
+              console.log(data);
+              return highwayObj.highway;
+            });
+          });
+      } else if (args.state) {
+        return commonPromise.where("state", args.state).then((data) => {
+          return data.map((highwayObj) => {
+            console.log(data);
+            return highwayObj.highway;
+          });
+        });
+      } else if (args.city) {
+        return commonPromise.where("city", args.city).then((data) => {
+          console.log(data);
+          return data.map((highwayObj) => highwayObj.highway);
+        });
+      } else {
+        return commonPromise.then((data) => {
+          console.log(data);
+          return data.map((highwayObj) => highwayObj.highway);
+        });
+      }
+    },
     allStateCoords: () => {
       return db
         .select("state")
@@ -112,6 +161,16 @@ const resolvers = {
         .from("locations")
         .then((data) => {
           // console.log(data);
+          return data;
+        });
+    },
+    singleLocation: (_, args) => {
+      return db
+        .select("*")
+        .from("locations")
+        .where("name", args.locationName)
+        .then((data) => {
+          console.log(data);
           return data;
         });
     },
