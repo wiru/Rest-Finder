@@ -14,8 +14,10 @@
 <script>
 export default {
   name: "StopTypes",
-  props: {
-    msg: String,
+  data: function() {
+    return {
+      checkedTypes: "",
+    };
   },
 };
 </script>
