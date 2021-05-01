@@ -25,6 +25,7 @@ const typeDefs = gql`
     allStateCoords: [stateCoordinate]
     allCityCoords: [cityCoordinate]
     singleLocation(locationName: String): [Location]
+    
   }
 
   type stateCoordinate {
