@@ -91,6 +91,16 @@ const resolvers = {
         });
       }
     },
+    singleLocation: (_, args) => {
+      return db
+        .select("*")
+        .from("locations")
+        .where("name", args.locationName)
+        .then((data) => {
+          console.log(data);
+          return data;
+        });
+    },
     // select state,avg(latitude) as avglat, avg(longitude) as avglg from locations group by state;
     allStateCoords: () => {
       return db
