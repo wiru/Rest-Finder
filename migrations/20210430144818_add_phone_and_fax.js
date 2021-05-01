@@ -1,13 +1,13 @@
-exports.up = function (knex) {
-    return knex.schema.table('locations', function (table) {
-        table.text("phone");
+exports.up = function(knex) {
+  return knex.schema.table("locations", function(table) {
+    table.text("phone");
 
-        table.text("fax");
-    })
+    table.text("fax");
+  });
 };
 
-exports.down = function (knex) {
-    return knex.schema.table('locations', function (table) {
-        table.dropColumns(["phone", "fax"])
-    })
+exports.down = function(knex) {
+  return knex.schema.table("locations", function(table) {
+    table.dropColumns(["phone", "fax"]);
+  });
 };

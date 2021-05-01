@@ -37,15 +37,6 @@ const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     name: String!
-<<<<<<< HEAD
-    state: String!
-    city: String!
-    highway: String!
-    zip_code: String!
-    address1: String!
-    subtype: String!
-    exit: String!
-=======
     state: String
     city: String
     highway: String
@@ -56,7 +47,6 @@ const typeDefs = gql`
     phone: String
     fax: String
     restaurants: [String]
->>>>>>> 5e05a072cee52de0ce90c1aaae5b16b93b6403f1
   }
 `;
 
@@ -121,7 +111,7 @@ const resolvers = {
         .orderBy("city")
         .from("locations")
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           return data;
         });
     },
