@@ -18,6 +18,7 @@ const typeDefs = gql`
     allStateCoords: [stateCoordinate]
     allCityCoords: [cityCoordinate]
     singleLocation(locationName: String): [Location]
+    
   }
 
   type stateCoordinate {
@@ -47,6 +48,7 @@ const typeDefs = gql`
     phone: String
     fax: String
     restaurants: [String]
+    truck_services: [String]
   }
 `;
 
