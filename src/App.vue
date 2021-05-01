@@ -4,23 +4,24 @@
       <img id="header-logo" src="./assets/croc3.png" alt="A cute alligator" />
       <h1>Pit Stop</h1>
     </header>
+    <div id="navbar">
+      <img
+        id="speech-bubble"
+        src="./assets/speech-bubble.png"
+        alt="speech bubble"
+      />
+      <img id="map-gator" src="./assets/croc2.png" alt="cute alligator" />
+    </div>
     <div id="flexbox-container">
       <div id="column1">
         <FilterByState />
-        <TruckServices />
+        <!-- v-bind:locations="locations" -->
+        <!-- <TruckServices />
         <StopType />
         <Amenities />
-        <Restaurants />
+        <Restaurants /> -->
       </div>
       <div id="column2">
-        <div id="column2-header">
-          <img
-            id="speech-bubble"
-            src="./assets/speech-bubble.png"
-            alt="speech bubble"
-          />
-          <img id="map-gator" src="./assets/croc2.png" alt="cute alligator" />
-        </div>
         <Map />
       </div>
     </div>
@@ -29,21 +30,23 @@
 
 <script>
 /* import FilterByState from "./components/FilterByState.vue"; */
-import Amenities from "./components/Amenities.vue";
-import Restaurants from "./components/Restaurants.vue";
-import TruckServices from "./components/TruckServices.vue";
-import StopType from "./components/StopType.vue";
+// import Amenities from "./components/Amenities.vue";
+// import Restaurants from "./components/Restaurants.vue";
+// import TruckServices from "./components/TruckServices.vue";
+// import StopType from "./components/StopType.vue";
 import Map from "./components/Map";
+import FilterByState from "./components/FilterByState.vue";
 
 export default {
   name: "app",
   components: {
     /* FilterByState, */
     Map,
-    Restaurants,
-    TruckServices,
-    Amenities,
-    StopType,
+    // Restaurants,
+    // TruckServices,
+    // Amenities,
+    // StopType,
+    FilterByState,
   },
 };
 </script>
@@ -71,7 +74,8 @@ body {
 }
 header {
   display: flex;
-  margin-left: 100px;
+  margin: auto;
+  width: min(1200px, 75%);
   margin-top: 20px;
   justify-content: left;
   color: rgb(255, 217, 0);
@@ -93,6 +97,7 @@ h1 {
   width: min(1200px, 90%);
   justify-content: center;
   margin: auto;
+  z-index: 0;
 }
 #column1 {
   display: flex;
@@ -102,7 +107,7 @@ h1 {
 #column2 {
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
+  margin: 10px;
   flex: 2;
   z-index: 1;
 }
@@ -127,11 +132,13 @@ h1 {
   font-size: 1.2rem;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
-#column2-header {
+#navbar {
   display: flex;
-  z-index: 2;
+  margin: auto;
+  width: min(1200px, 90%);
+  z-index: 10;
   justify-content: flex-end;
-  margin-bottom: 2px;
+  margin-bottom: -9px;
 }
 #map-gator {
   margin-right: 30px;
@@ -139,6 +146,7 @@ h1 {
   max-width: 150px;
   height: 80px;
   margin-top: auto;
+  z-index: 10;
 }
 #speech-bubble {
   margin-right: -10px;
@@ -166,8 +174,9 @@ h1 {
     margin-bottom: auto;
   }
   header {
-    justify-content: center;
-    margin: 0px;
+    display: flex;
+    justify-content: flex-start;
+    width: min(1200px, 90%);
     font-size: 6vw;
   }
   #header-logo {

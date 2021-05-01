@@ -12,9 +12,23 @@ const app = express();
 // SCHEMA
 const typeDefs = gql`
   type Query {
-    allLocations: [Location]
+    allLocations(state: String, city: String, highway: String): [Location]
     allStates: [String]
-    allCities(stateId: String): [String]
+    allCities(state: String): [String]
+    allStateCoords: [stateCoordinate]
+    allCityCoords: [cityCoordinate]
+  }
+
+  type stateCoordinate {
+    latitude: Float
+    longitude: Float
+    state: String
+  }
+
+  type cityCoordinate {
+    latitude: Float
+    longitude: Float
+    city: String
   }
 
   type Location {
@@ -22,30 +36,29 @@ const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     name: String!
-    state: String
-    city: String
-    highway: String
-    zip_code: String
-    address1: String
-    subtype: String
-    exit: String
-    phone: String
-    fax: String
-    restaurants: [String]
+    state: String!
+    city: String!
+    highway: String!
+    zip_code: String!
+    address1: String!
+    subtype: String!
+    exit: String!
   }
 `;
 
 // RESOLVER
 const resolvers = {
   Query: {
-    allLocations: () => {
-      return db
-        .select("*")
-        .from("locations")
-        .then((data) => {
-          // console.log(data);
-          return data;
-        });
+    allLocations: (parent, args) => {
+      let beforeFilterPromise = db.select("*").from("locations");
+      if (args.state) {
+        beforeFilterPromise = beforeFilterPromise.where("state", args.state);
+      }
+      if (args.city) {
+        beforeFilterPromise = beforeFilterPromise.where("city", args.city);
+      }
+
+      return beforeFilterPromise;
     },
     allStates: () => {
       return db
@@ -64,8 +77,8 @@ const resolvers = {
         .distinct("city")
         .orderBy("city")
         .from("locations");
-      if (args.stateId) {
-        return commonPromise.where("state", args.stateId).then((data) => {
+      if (args.state) {
+        return commonPromise.where("state", args.state).then((data) => {
           return data.map((cityObj) => cityObj.city);
         });
       } else {
@@ -73,6 +86,30 @@ const resolvers = {
           return data.map((cityObj) => cityObj.city);
         });
       }
+    },
+    // select state,avg(latitude) as avglat, avg(longitude) as avglg from locations group by state;
+    allStateCoords: () => {
+      return db
+        .select("state")
+        .distinct("state")
+        .orderBy("state")
+        .from("locations")
+        .groupBy("state")
+        .avg("latitude as latitude")
+        .avg("longitude as longitude")
+        .then((data) => {
+          return data;
+        });
+    },
+    allCityCoords: () => {
+      return db
+        .select("city", "latitude", "longitude")
+        .orderBy("city")
+        .from("locations")
+        .then((data) => {
+          console.log(data);
+          return data;
+        });
     },
   },
 };
