@@ -12,17 +12,18 @@ be sure to run npm install with dependencies
 
 One Paragraph of project description goes here
 
+## Built With
+
+* [Vuex] UI
+* [Knex] Query Builder
+* [ApolloServer] Serves queries
+* [Graphql] API Queries
+* [Postgres] Database
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
-
-
-
-```
-npm install
-```
 
 ### Installing
 
@@ -32,13 +33,7 @@ Everything you need is in the package.json, so just a basic install from your pa
 npm install
 ```
 
-If you are deploying via heroku, you might want to install the heroku CLI as well:
-
-```
-npm run heroku
-```
-
-Next, create a .env file and populate it with the following:
+Next, create a .env file in the root directory and populate it with the following:
 
 ** FOR WINDOWS USERS **
 
@@ -58,9 +53,31 @@ DB_PW=// your postgres password
 DB_HOST=localhost
 ```
 
+Head over to your postgres terminal and create a local database with whatever name you entered for DB_NAME in your .env file, and then run
+
+```
+npm run migrate
+npm run seed
+```
+
+You can then start the two dev servers (in separate terminals):
+
+```
+npm run hack:client
+npm run hack:server
+```
+
+And then open your localhost8080 to see the site in action!
+
+Note: the servers will automatically run a migration and seed.
+
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Query tests are set up using chai and mocha, and can be run with 
+
+```
+npm run test
+```
 
 ### Break down into end to end tests
 
@@ -70,44 +87,39 @@ Explain what these tests test and why
 Give an example
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+We deployed with Heroku. It makes sense to have the heroku CLI installed:
 
-## Built With
+```
+npm install heroku
+```
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+Additionally, Heroku Postgres is a prerequisite for hosting over there.
+
 
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
+// this needs to be fleshed out
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Ken** - [CC19](https://github.com/********)
+* **Alix** - [CC19](https://github.com/********)
+* **Will** - [CC19](https://github.com/********)
+* **Evan** - [CC19](https://github.com/********)
+* **Pete Griffith** - [CC19](https://github.com/griffitp12)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+?????
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Google
+* Stack Overflow
+* tha bmts
