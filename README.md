@@ -1,6 +1,6 @@
 This app was created during our time as students at Code Chrysalis
 
-![App Logo](src/assets/croc.png)
+<img src="src/assets/croc.png" width="150px">
 
 # restfinder - an app for finding Flying K highway rest stops
 
@@ -30,7 +30,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Everything you need is in the package.json, so just a basic install from your package manager of choice will suffuce:
+Everything you need is in the package.json, so just a basic install from your package manager of choice will suffice:
 
 ```
 npm install
@@ -99,18 +99,20 @@ Additionally, Heroku Postgres is a prerequisite for hosting over there.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Should you want to contribute:
+* please fork and clone the repo on your machine
+* Create an "issue" to describe what you want to work on
+* Submit a pull request.
 
-// this needs to be fleshed out
-
+Many thanks!
 
 ## Authors
 
-* **Ken** - [CC19](https://github.com/********)
-* **Alix** - [CC19](https://github.com/AlixFachin)
-* **Will** - [CC19](https://github.com/********)
-* **Evan** - [CC19](https://github.com/Evomatic)
-* **Pete** - [CC19](https://github.com/griffitp12)
+* [Ken](https://github.com/********)
+* [Alix](https://github.com/AlixFachin)
+* [Will](https://github.com/********)
+* [Evan](https://github.com/Evomatic)
+* [Pete](https://github.com/griffitp12)
 
 
 ## License
@@ -118,6 +120,9 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Helpful links
-* 
+* Alligator logo found on <http://clipart-library.com/clipart/8cG6L6dki.htm>
+* Using font finder with <https://fontflipper.com/upload>
+
+
 
 
