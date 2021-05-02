@@ -71,13 +71,7 @@ Query tests are set up using chai and mocha, and can be run with
 npm run test
 ```
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+WHAT DO THE TESTS TEST?
 
 ## Deployment
 
