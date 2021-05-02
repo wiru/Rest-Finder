@@ -45,7 +45,6 @@ export default {
   mounted() {
     this.getStates();
     this.getHighways();
-    console.log("THE SECOND MOUNTING");
   },
   data: function() {
     return {
@@ -63,7 +62,6 @@ export default {
       this.$store.dispatch("loadHighways");
     },
     resetView() {
-      console.log("SUP!");
       this.$store.commit("resetGoogleView");
     },
   },

@@ -50,7 +50,6 @@ export default new Vuex.Store({
       state.selectedZoom = 6;
     },
     setGoogleCityView(state, input) {
-      // console.log("Hi");
       let selectedCity = state.cityCoordinates.find(function(cityObj) {
         if (cityObj.city == input) return true;
       });
@@ -67,19 +66,14 @@ export default new Vuex.Store({
     },
     setStateCoordinates(state, stateCoords) {
       state.stateCoordinates = stateCoords;
-      // console.log(state.stateCoordinates);
-      // console.log("THIS IS STATE COORDS", stateCoords);
     },
     setCityCoordinates(state, cityCoords) {
       state.cityCoordinates = cityCoords;
-      // console.log(state.cityCoordinates);
-      // console.log("THIS IS COORDS", cityCoords);
     },
   },
   actions: {
     async loadMarkers({ commit }) {
       try {
-        // console.log(this.state.selectedOptions);
         const locations = await fetch("/graphql?", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -95,17 +89,14 @@ export default new Vuex.Store({
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log(res.data.allLocations);
             return res.data.allLocations;
           });
-        console.log(this.state.selectedOptions);
         const markers = locations.map((location) => ({
           position: {
             lat: location.latitude,
             lng: location.longitude,
           },
           key: location.name,
-          //"{ url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' }"
           icon: `http://maps.google.com/mapfiles/ms/icons/${
             location.subtype === "Travel Stop" ? "blue" : "red"
           }-dot.png`,
@@ -130,7 +121,6 @@ export default new Vuex.Store({
         })
           .then((res) => res.json())
           .then((res) => {
-            // console.log(res.data.allStates);
             return res.data.allStates;
           });
         commit("setStateList", states);
@@ -140,7 +130,6 @@ export default new Vuex.Store({
     },
     async loadCities({ commit }) {
       try {
-        console.log("PPOP", this.state.selectedHighwayState);
         const cities = await fetch("/graphql?", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -152,7 +141,6 @@ export default new Vuex.Store({
         })
           .then((res) => res.json())
           .then((res) => {
-            // console.log(res.data.allCities);
             return res.data.allCities;
           });
         commit("setCityList", cities);
@@ -163,7 +151,6 @@ export default new Vuex.Store({
 
     async loadHighways({ commit }) {
       try {
-        console.log("AAAAAHHHHHHHHHHHH");
         const highways = await fetch("/graphql?", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -177,7 +164,6 @@ export default new Vuex.Store({
           .then((res) => {
             return res.data.allHighways;
           });
-          console.log(highways)
         commit("setHighwayList", highways);
       } catch (err) {
         console.error(err);
@@ -208,7 +194,6 @@ export default new Vuex.Store({
       }
     },
     async loadCityCoords({ commit }) {
-      // console.log("HIPPPPPPPPP")
       try {
         const cityCoords = await fetch("/graphql?", {
           method: "POST",
@@ -225,7 +210,6 @@ export default new Vuex.Store({
         })
           .then((res) => res.json())
           .then((res) => {
-            // console.log(res.data.allCityCoords);
             return res.data.allCityCoords;
           });
         commit("setCityCoordinates", cityCoords);

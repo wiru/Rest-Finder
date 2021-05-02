@@ -133,25 +133,21 @@ const resolvers = {
           .where("city", args.city)
           .then((data) => {
             return data.map((highwayObj) => {
-              console.log(data);
               return highwayObj.highway;
             });
           });
       } else if (args.state) {
         return commonPromise.where("state", args.state).then((data) => {
           return data.map((highwayObj) => {
-            console.log(data);
             return highwayObj.highway;
           });
         });
       } else if (args.city) {
         return commonPromise.where("city", args.city).then((data) => {
-          console.log(data);
           return data.filter((highwayObj) => !!highwayObj.highway).map((highwayObj) => highwayObj.highway);
         });
       } else {
         return commonPromise.then((data) => {
-          console.log(data);
           return data.filter((highwayObj) => !!highwayObj.highway).map((highwayObj) => highwayObj.highway);
         });
       }
@@ -175,7 +171,6 @@ const resolvers = {
         .orderBy("city")
         .from("locations")
         .then((data) => {
-          // console.log(data);
           return data;
         });
     },
@@ -185,7 +180,6 @@ const resolvers = {
         .from("locations")
         .where("name", args.locationName)
         .then((data) => {
-          console.log(data);
           return data;
         });
     },

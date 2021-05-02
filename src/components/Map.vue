@@ -26,7 +26,6 @@ export default {
   mounted() {
     this.getLocations();
     this.getAllCoords();
-    console.log("MOUNTING");
   },
   computed: {
     locations() {
