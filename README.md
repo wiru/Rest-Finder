@@ -1,23 +1,32 @@
 This app was created during our time as students at Code Chrysalis
 
+![src/assets/croc2.png]
+
 # restfinder - an app for finding Flying K highway rest stops
 
 **restfinder** is a fullstack group project application, using the [Google Maps Platform](https://developers.google.com/maps).
   This project was an opportunity for us to gain experience working in a real Agile workflow on a realistic CD pipeline while creating a full stack application from scratch, based on employer expectations and user stories.
-
+You can find the live version in production at: <https://navigatorz.herokuapp.com>
 
 ## Built With
 
-* [Vuex] UI
-* [Knex] Query Builder
-* [ApolloServer] Serves queries
-* [Graphql] API Queries
-* [Postgres] Database
+* [Vuex](https://vuejs.org) for the UI
+* [Knex](http://knexjs.org) Query Builder
+* [ApolloServer](https://www.apollographql.com) Serves queries
+* [Graphql](https://graphql.org) API Queries
+* [Postgres](https://www.postgresql.org) Database
+
+## Overall repo structure
+* Configuration files are in the `root` folder.
+* Initial seeding data (in a JSON file) is located in the `data` folder.
+* In the `migrations` folder are located all the migrations for the PostgreSQL database
+* In the `server` folder are located all the files necessary to the back-end node server, and the corresponding test file.
+* In the `src` file are located all the source files related with the `client` 
+
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 
 ### Installing
 
@@ -72,12 +81,14 @@ Query tests are set up using chai and mocha, and can be run with
 ```
 npm run test
 ```
-
-WHAT DO THE TESTS TEST?
+The tests are checking whether the GraphQL API returns the proper values for each GraphQL resolver.
 
 ## Deployment
 
-We deployed with Heroku. It makes sense to have the heroku CLI installed:
+We deployed with Heroku. 
+Should you want to deploy the app on Heroku servers, we recommend to install the Heroku CLI.
+Please refer to the official Heroku help for further details:
+<https://devcenter.heroku.com/articles/git>
 
 ```
 npm install heroku
@@ -96,7 +107,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 ## Authors
 
 * **Ken** - [CC19](https://github.com/********)
-* **Alix** - [CC19](https://github.com/********)
+* **Alix** - [CC19](https://github.com/AlixFachin)
 * **Will** - [CC19](https://github.com/********)
 * **Evan** - [CC19](https://github.com/Evomatic)
 * **Pete** - [CC19](https://github.com/griffitp12)
@@ -104,10 +115,9 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## License
 
-?????
+MIT
 
-## Acknowledgments
+## Helpful links
+* 
 
-* Google
-* Stack Overflow
-* tha bmts
+
