@@ -1,6 +1,6 @@
 This app was created during our time as students at Code Chrysalis
 
-![src/assets/croc2.png]
+![App Logo](src/assets/croc.png)
 
 # restfinder - an app for finding Flying K highway rest stops
 
