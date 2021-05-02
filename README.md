@@ -121,7 +121,6 @@ Many thanks!
 
 ## Helpful links
 * Alligator logo found on <http://clipart-library.com/clipart/8cG6L6dki.htm>
-* Using font finder with <https://fontflipper.com/upload>
 
 
 
