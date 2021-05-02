@@ -3,7 +3,7 @@ This app was created during our time as students at Code Chrysalis
 # restfinder - an app for finding Flying K highway rest stops
 
 **restfinder** is our first fullstack group project application, using the [Google Maps Platform](https://developers.google.com/maps).
-  This project was an opportunity for us to gain experience working in a real Agile workflow on a realistic CD pipeline. As well to be
+  This project was an opportunity for us to gain experience working in a real Agile workflow on a realistic CD pipeline. As well as to be
   able to create a full stack application from scratch, based on employer expectations and user stories.
 
 
