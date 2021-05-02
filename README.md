@@ -108,9 +108,9 @@ Many thanks!
 
 ## Authors
 
-* [Ken](https://github.com/********)
+* [Ken](https://github.com/KuroKen91)
 * [Alix](https://github.com/AlixFachin)
-* [Will](https://github.com/********)
+* [Will](https://github.com/wiru)
 * [Evan](https://github.com/Evomatic)
 * [Pete](https://github.com/griffitp12)
 
